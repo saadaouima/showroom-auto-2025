@@ -181,8 +181,9 @@ export class SearchBar {
   selectedAutos:Auto[]=this.autoList
 
 
-  selectAutoList(brand:string){
-    this.selectedAutos=this.autos.filter(x=>x.brand.toLowerCase().startsWith(brand.toLowerCase()))
+  selectAutoList(keyword:string){
+    this.selectedAutos=this.autos.filter(car=>car.brand.toLowerCase().startsWith(keyword.toLowerCase()) || car.model.toLowerCase().startsWith(keyword.toLowerCase()) 
+    || car.power == Number(keyword))
     
     console.table(this.selectedAutos)
   }
