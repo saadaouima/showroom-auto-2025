@@ -1,0 +1,10 @@
+.container-fluid {
+    padding: 20px;
+    background-color: #1E90FF; /* change to your preferred color, e.g., DodgerBlue */
+}
+
+h1 {
+    color: #ffffff; /* text color that contrasts with the background */
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

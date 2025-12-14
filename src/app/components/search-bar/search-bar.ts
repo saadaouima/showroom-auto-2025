@@ -1,26 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Auto } from '../../Interfaces/auto';
+import { CurrencyPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { HeadBar } from './components/head-bar/head-bar';
-import { SearchBar } from './components/search-bar/search-bar';
-import { Auto } from './Interfaces/auto';
+
 @Component({
-  selector: 'app-root',
-  imports: [CommonModule,RouterOutlet, HeadBar, SearchBar],
-  templateUrl: './app.html',
-  styleUrls: ['./app.css','components/search-bar/search-bar.css']
+  selector: 'app-search-bar',
+  imports: [CurrencyPipe, CommonModule  ],
+  templateUrl: './search-bar.html',
+  styleUrl: './search-bar.css'
 })
-export class App {
-  protected readonly title = signal('showroom-auto');
+export class SearchBar {
+  @Input() autos:Auto[]=[]
 
-  selectedAuto:Auto|null=null
 
-  
-
-  selectAuto(auto:Auto){
-    this.selectedAuto=auto
-    console.log('Hello Child')
-  }
+  @Output() onSelectAuto=new EventEmitter<Auto>()
 
   autoList:Auto[]=[
     {     
@@ -185,8 +178,30 @@ export class App {
     }
   ]
 
-  allAuto:Auto[]=this.autoList
+  selectedAutos:Auto[]=this.autoList
 
 
+  selectAutoList(brand:string){
+    this.selectedAutos=this.autos.filter(x=>x.brand.toLowerCase().startsWith(brand.toLowerCase()))
+    
+    console.table(this.selectedAutos)
+  }
 
-}
+  selectedAuto :Auto|null=null
+
+  showDetails(auto:Auto){
+    this.onSelectAuto.emit(auto)
+    this.selectedAuto = auto
+
+  }
+  /*autoTitleStyle(auto:Auto){
+    if(auto.power>=10)
+      return {'color':'red'}
+    
+    else
+      return {'color':'black'}*/
+    
+
+     
+  }
+  
